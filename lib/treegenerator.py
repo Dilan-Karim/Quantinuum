@@ -1,11 +1,11 @@
 """
-This module contains the TreeComparison class which is used to compare and
+This lib.randomreaderns the TreeComparison class which is used to compare and
 generate lambeq trees and random trees.
 """
 
 from dataclasses import dataclass
 import helper_functions
-from random_reader import RandomReader
+from lib.randomreader import RandomReader
 from lambeq import BobcatParser, TreeReader, TreeReaderMode
 
 @dataclass
