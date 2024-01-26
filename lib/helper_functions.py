@@ -1,40 +1,56 @@
-import string, re
+"""
+This module contains helper functions for loading data and constructing diagrams.
 
-# Helper functions for loading data
-# In the example: https://github.com/CQCL/lambeq/blob/main/docs/examples/tree-reader.ipynb
-# The full stop is directly adjacent to the word, which is not the case in the data
-# This function removes the whitespace before punctuation while loading the data
-def load_data(file_path):
-    labels = []
-    sentences = []
-    with open(file_path, 'r') as file:
-        for line in file:
-            label, sentence = line.strip().split(' ', 1)
-            labels.append(int(label))
-            # Remove whitespace before punctuation
-            sentence = re.sub(r'\s([{}])'.format(re.escape(string.punctuation)), r'\1', sentence)
-            sentences.append(sentence)
+Functions:
+    - load_data(filename): Load data from a file.
+    - construct(sentence, reader, save_path=None, draw=False): Constructs a diagram based 
+                                                               on the given sentence using 
+                                                               the provided reader.
+
+Classes:
+    - Reader: A class used to convert sentences into diagrams.
+
+"""
+
+def load_data(filename):
+    """
+    Load data from a file.
+
+    Args:
+        filename (str): The path to the file containing the data.
+
+    Returns:
+        tuple: A tuple containing two lists - labels and sentences.
+               The labels list contains pairs of floats representing the labels,
+               and the sentences list contains the corresponding sentences.
+    """
+    labels, sentences = [], []
+    with open(filename, encoding='utf-8') as f:
+        for line in f:
+            t = float(line[0])
+            labels.append([t, 1-t])
+            sentences.append(line[1:].strip())
     return labels, sentences
 
-# Construct a tree from a sentence
-# BobcatParser is a CCG parser
-def construct(sentence, reader, plot=True, save_path=None):
-    
+
+def construct(sentence, reader, save_path=None, draw=False):
+    """
+    Constructs a diagram based on the given sentence using the provided reader.
+
+    Args:
+        sentence (str): The sentence to be converted into a diagram.
+        reader (Reader): The reader object used to convert the sentence into a diagram.
+        save_path (str, optional): The path to save the diagram image file. Defaults to None.
+        draw (bool, optional): Flag indicating whether to draw the diagram. Defaults to False.
+
+    Returns:
+        Diagram: The constructed diagram object.
+    """
     diagram = reader.sentence2diagram(sentence=sentence)
-    if plot:
-        diagram.draw(path=save_path)
+    if draw:
+        if save_path:
+            diagram.draw(path=save_path)
+        else:
+            print("No save path provided. Generating diagram without saving.")
 
-
-    return reader
-
-
-
-
-if __name__=="__main__":
-    # path to the data - currently only data within the repo is considered
-    path_to_training = "training_data/mc_train_data.txt"
-    path_to_test = "training_data/mc_test_data.txt"
-
-
-    _, sentences = load_data(path_to_training)
-    print(sentences)
+    return diagram
