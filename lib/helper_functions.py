@@ -6,6 +6,7 @@ Functions:
     - construct(sentence, reader, save_path=None, draw=False): Constructs a diagram based 
                                                                on the given sentence using 
                                                                the provided reader.
+    - print_debug(message, DEBUG=False): Prints the message if the DEBUG flag is set to True.
 
 Classes:
     - Reader: A class used to convert sentences into diagrams.
@@ -46,7 +47,7 @@ def construct(sentence, reader, save_path=None, draw=False):
     Returns:
         Diagram: The constructed diagram object.
     """
-    diagram = reader.sentence2diagram(sentence=sentence)
+    diagram = reader.sentence2diagram(sentence=sentence).to_diagram()
     if draw:
         if save_path:
             diagram.draw(path=save_path)
@@ -54,3 +55,17 @@ def construct(sentence, reader, save_path=None, draw=False):
             print("No save path provided. Generating diagram without saving.")
 
     return diagram
+
+
+def print_debug(message, DEBUG=False):
+    """
+    Prints the message if the DEBUG flag is set to True.
+
+    Args:
+        message (str): The message to print.
+
+    Returns:
+        None
+    """
+    if DEBUG:
+        print(f"Debug mode: ---{message}---")

@@ -11,6 +11,7 @@ from lambeq.backend.grammar import Box, Word
 
 # Define the types
 S = AtomicType.SENTENCE # S to be consistent with the BobcatParser
+N = AtomicType.NOUN # S to be consistent with the BobcatParser
 
 
 # Define a new Reader class
@@ -59,7 +60,7 @@ class RandomReader(Reader):
             Word: The converted Word object.
         """
         if isinstance(obj, str):
-            return Word(obj, S)
+            return Word(obj, N)
         else:
             return obj
 
@@ -108,12 +109,3 @@ class RandomReader(Reader):
         # Recursive call
         return self.recursive_combine(combined_items)
 
-
-
-
-
-
-if __name__=="__main__":
-
-    reader = RandomReader()
-    reader.sentence2diagram("Ich liebe dummer Katzen, denn sie sind Tiere.").draw()
