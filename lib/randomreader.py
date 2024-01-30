@@ -108,4 +108,3 @@ class RandomReader(Reader):
 
         # Recursive call
         return self.recursive_combine(combined_items)
-

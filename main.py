@@ -1,7 +1,12 @@
+"""
+This script performs tree generation, training, and plotting
+for the comparison of the BobCat and Random parsers.
+"""
+from lambeq import TreeReaderMode
 from lib import treegenerator
 from lib.helper_functions import print_debug
 from lib.training import TrainerWrapper
-from lambeq import TreeReaderMode
+
 # set debug flag
 DEBUG = True
 
@@ -11,7 +16,6 @@ EPOCHS = 200
 LEARNING_RATE = 2e-3
 SEED = 0
 READERMODE = TreeReaderMode.RULE_ONLY
-
 
 # paths to data
 PATH_TO_TRAINING = "training_data/mc_train_data.txt"

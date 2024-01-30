@@ -57,7 +57,7 @@ def construct(sentence, reader, save_path=None, draw=False):
     return diagram
 
 
-def print_debug(message, DEBUG=False):
+def print_debug(message, debug=False):
     """
     Prints the message if the DEBUG flag is set to True.
 
@@ -67,5 +67,5 @@ def print_debug(message, DEBUG=False):
     Returns:
         None
     """
-    if DEBUG:
+    if debug:
         print(f"Debug mode: ---{message}---")
